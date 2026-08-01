@@ -1,0 +1,18 @@
+<form method="post" action="https://merchantpw.credibanco.com/cartaspago/redirect">
+    <input name="merchant_id" type="hidden"  value="30089">
+    <input name="form_id" type="hidden"  value="23891">
+    <input name="terminal_id" type="hidden"  value="20047">
+    <input name="order_number" type="hidden"  value="1254">
+    <input name="amount" type="hidden"  value="0">
+    <input name="currency" type="hidden"  value="cop">
+    <input name="order_description" type="hidden"  value="Test de compra">
+    <input name="color_base" type="hidden"  value="#DE073F">
+    <input name="client_email" type="hidden" value="user@example.com">
+    <input name="client_phone" type="hidden" value="3000000000">
+    <input name="client_firstname" type="hidden" value="pepito perez">
+    <input name="client_lastname" type="hidden" value="ramirez ramirez">
+    <input name="client_doctype" type="hidden" value="4">
+    <input name="client_numdoc" type="hidden" value="1234567890">
+    <input name="response_url" type="hidden" value="http://www.test.com/response">
+    <input name="Submit" type="submit" style="color: #fff; background: #de0c3e; padding: 7px 15px; border: none; cursor: pointer; border-radius: 5px;"  value="Enviar">
+</form>

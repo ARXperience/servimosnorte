@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+db.sqlite
+uploads/
+.wwebjs_auth/
+.wwebjs_cache/
+*.log
+build/
+*.zip

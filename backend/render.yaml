@@ -1,0 +1,27 @@
+databases:
+  - name: servimos-norte-db
+    databaseName: servimos_norte
+    plan: free
+
+services:
+  - type: web
+    name: servimos-norte-api
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node dist/main.js
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: servimos-norte-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GEMINI_API_KEY
+        value: AIzaSyBNEWC8AUqb6KxXvMaGkvpv42OA4gxI0cs
+      - key: PORT
+        value: 3001
+      - key: CORS_ORIGINS
+        value: https://servimosnorte.com,https://www.servimosnorte.com,https://api.servimosnorte.com
+      - key: NODE_ENV
+        value: production
