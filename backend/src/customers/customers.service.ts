@@ -56,7 +56,7 @@ export class CustomersService {
     }
 
     async findByPhone(phone: string): Promise<Customer | null> {
-        return this.repo.findOne({ where: { phone } });
+        return this.repo.findOne({ where: { phone }, withDeleted: true });
     }
 
     async update(id: string, dto: UpdateCustomerDto): Promise<Customer> {
