@@ -8,10 +8,11 @@ import { ProductsModule } from '../products/products.module';
 import { CustomersModule } from '../customers/customers.module';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { ChatbotModule } from '../chatbot/chatbot.module';
+import { Payment } from '../payments/entities/payment.entity';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Order, OrderItem]), 
+        TypeOrmModule.forFeature([Order, OrderItem, Payment]), 
         ProductsModule, 
         CustomersModule,
         NotificationsModule,

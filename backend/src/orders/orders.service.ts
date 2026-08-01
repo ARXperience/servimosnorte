@@ -10,12 +10,14 @@ import { CreateOrderDto } from './dto/order.dto';
 import { EmailService } from '../email/email.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { ChatbotService } from '../chatbot/chatbot.service';
+import { Payment, PaymentMethod, PaymentStatusEnum } from '../payments/entities/payment.entity';
 
 @Injectable()
 export class OrdersService {
     constructor(
         @InjectRepository(Order) private orderRepo: Repository<Order>,
         @InjectRepository(OrderItem) private itemRepo: Repository<OrderItem>,
+        @InjectRepository(Payment) private paymentRepo: Repository<Payment>,
         private productsService: ProductsService,
         private customersService: CustomersService,
         private emailService: EmailService,
@@ -174,6 +176,21 @@ export class OrdersService {
         if (oldStatus === OrderStatus.PENDING && (status === OrderStatus.PAID || status === OrderStatus.SHIPPED || status === OrderStatus.DELIVERED)) {
             for (const item of order.items) {
                 await this.productsService.updateStock(item.productId, -item.quantity);
+            }
+        }
+
+        // Auto-create Payment record if status changes to PAID and none exists
+        if (status === OrderStatus.PAID && oldStatus !== OrderStatus.PAID) {
+            const existingPayment = await this.paymentRepo.findOne({ where: { orderId: id, status: PaymentStatusEnum.COMPLETED } });
+            if (!existingPayment) {
+                const newPayment = this.paymentRepo.create({
+                    amount: order.total,
+                    method: PaymentMethod.CASH, // Defaulting to cash since it's manually marked
+                    status: PaymentStatusEnum.COMPLETED,
+                    orderId: id,
+                    reference: `Auto-generado: Orden ${order.id.slice(0, 8)} marcada como PAGADA`
+                });
+                await this.paymentRepo.save(newPayment);
             }
         }
 
