@@ -98,22 +98,30 @@ export class OrdersService {
         // 3. Email to buyer
         if (customerEmail) {
             const emailHtml = `
-                <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-                    <div style="background-color: #f8f9fa; padding: 20px; text-align: center; border-bottom: 3px solid #DE073F;">
-                        <h2 style="color: #DE073F; margin: 0;">¡Confirmación de tu Orden!</h2>
+                <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; background-color: #ffffff;">
+                    <div style="background-color: #f8f9fa; padding: 25px 20px; text-align: center; border-bottom: 4px solid #DE073F;">
+                        <img src="https://servimosnorte.com/logo.png" alt="Servimos Norte" style="max-width: 250px; height: auto; margin-bottom: 10px;" />
+                        <h2 style="color: #DE073F; margin: 0; font-size: 22px; font-weight: bold;">¡Orden Confirmada!</h2>
                     </div>
-                    <div style="padding: 20px;">
-                        <p style="font-size: 16px;">Hola <strong>${customerName}</strong>,</p>
-                        <p>Hemos recibido la creación de tu pedido <b>${radicado}</b> por un total de <strong>$${savedOrder.total}</strong>.</p>
-                        <p>Si pagaste en línea, tu pago está siendo procesado o ya fue confirmado. Si elegiste pagar en efectivo en tienda, te esperamos.</p>
-                        <p style="background-color: #e9ecef; padding: 10px; border-left: 4px solid #ced4da; border-radius: 4px;"><strong>Dirección de entrega o retiro:</strong><br/>${dto.shippingAddress}</p>
-                        <br>
-                        <p>Si tienes dudas, puedes responder a este correo.</p>
-                        <p>¡Gracias por elegir Servimos Norte!</p>
+                    <div style="padding: 30px 20px;">
+                        <p style="font-size: 16px; margin-top: 0;">Hola <strong>${customerName}</strong>,</p>
+                        <p style="font-size: 15px; line-height: 1.5;">Hemos recibido exitosamente tu pedido <b style="color: #DE073F; font-size: 16px;">${radicado}</b> por un valor total de <strong>$${savedOrder.total}</strong>.</p>
+                        <p style="font-size: 15px; line-height: 1.5;">Si pagaste en línea, tu pago está siendo procesado o ya fue confirmado. Si elegiste pagar al recoger, te esperamos en nuestra tienda con tu número de orden.</p>
+                        
+                        <div style="background-color: #fef2f2; padding: 15px; border-left: 4px solid #DE073F; border-radius: 4px; margin: 25px 0;">
+                            <strong style="color: #DE073F; display: block; margin-bottom: 5px;">📍 Detalles de entrega o retiro:</strong>
+                            <span style="font-size: 14px; color: #555;">${dto.shippingAddress}</span>
+                        </div>
+                        
+                        <p style="font-size: 14px; color: #777; margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px;">Si tienes dudas sobre tu pedido, puedes responder directamente a este correo electrónico.</p>
+                        <p style="font-size: 16px; font-weight: bold; color: #333;">¡Gracias por preferir a Servimos Norte!</p>
+                    </div>
+                    <div style="background-color: #f8f9fa; padding: 15px; text-align: center; font-size: 12px; color: #888; border-top: 1px solid #e0e0e0;">
+                        <p style="margin: 0;">© ${new Date().getFullYear()} Servimos Norte. Todos los derechos reservados.</p>
                     </div>
                 </div>
             `;
-            this.emailService.sendNotificationEmail(customerEmail, `Confirmación de Orden ${radicado}`, emailHtml);
+            this.emailService.sendNotificationEmail(customerEmail, `Confirmación de Orden ${radicado} - Servimos Norte`, emailHtml);
         }
 
         // 4. Email to admin
