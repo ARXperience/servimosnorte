@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ProductCarousel from '@/components/ProductCarousel';
 import { FiTool, FiShoppingBag, FiCheckCircle, FiPhone, FiStar, FiShield, FiClock, FiArrowRight } from 'react-icons/fi';
 
 export default function HomePage() {
@@ -58,6 +59,9 @@ export default function HomePage() {
                         </div>
                     </div>
                 </section>
+
+                {/* Products Carousel */}
+                <ProductCarousel />
 
                 {/* Services Section */}
                 <section className="section" id="servicios">
