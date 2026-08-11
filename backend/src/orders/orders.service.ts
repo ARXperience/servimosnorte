@@ -188,7 +188,7 @@ export class OrdersService {
                     method: PaymentMethod.CASH, // Defaulting to cash since it's manually marked
                     status: PaymentStatusEnum.COMPLETED,
                     orderId: id,
-                    reference: `Auto-generado: Orden ${order.id.slice(0, 8)} marcada como PAGADA`
+                    description: `Auto-generado: Orden ${order.id.slice(0, 8)} marcada como PAGADA`
                 });
                 await this.paymentRepo.save(newPayment);
             }
