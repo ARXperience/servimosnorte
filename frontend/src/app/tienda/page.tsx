@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { api } from '@/lib/api';
-import { FiShoppingCart, FiSearch, FiFilter, FiX, FiCheck, FiInfo, FiShare2, FiFileText } from 'react-icons/fi';
+import { FiShoppingCart, FiSearch, FiFilter, FiCheck, FiInfo, FiShare2, FiFileText, FiArrowLeft } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 
@@ -42,7 +42,19 @@ export default function TiendaPage() {
         // Load cart from localStorage
         const saved = localStorage.getItem('servimos_cart');
         if (saved) setCart(JSON.parse(saved));
+        // Back button (incl. phone) closes the product view instead of leaving the store
+        const onPop = () => setSelectedProduct(null);
+        window.addEventListener('popstate', onPop);
+        return () => window.removeEventListener('popstate', onPop);
     }, []);
+
+    const openProduct = (product: any) => {
+        setSelectedProduct(product);
+        setActiveImage(0);
+        window.history.pushState(null, '', `/tienda/?productId=${product.id}`);
+    };
+
+    const closeProduct = () => window.history.back();
 
     useEffect(() => {
         let result = products;
@@ -67,7 +79,9 @@ export default function TiendaPage() {
                 if (productId) {
                     const product = data.find((p: any) => String(p.id) === productId);
                     if (product) {
-                        setSelectedProduct(product);
+                        // Shared link: put /tienda underneath so "Volver" stays in the store
+                        window.history.replaceState(null, '', '/tienda/');
+                        openProduct(product);
                     }
                 }
             }
@@ -190,7 +204,7 @@ export default function TiendaPage() {
                                 <div key={product.id} className="card group overflow-hidden animate-fadeInUp">
                                     <div 
                                         className="aspect-square bg-gray-100 rounded-xl mb-4 flex items-center justify-center overflow-hidden -mx-6 -mt-6 cursor-pointer"
-                                        onClick={() => { setSelectedProduct(product); setActiveImage(0); }}
+                                        onClick={() => openProduct(product)}
                                     >
                                         {product.images && product.images.length > 0 ? (
                                             <img
@@ -206,7 +220,7 @@ export default function TiendaPage() {
                                             </div>
                                         )}
                                     </div>
-                                    <div className="space-y-2 cursor-pointer" onClick={() => { setSelectedProduct(product); setActiveImage(0); }}>
+                                    <div className="space-y-2 cursor-pointer" onClick={() => openProduct(product)}>
                                         <span className={`text-xs font-bold uppercase px-2 py-1 rounded-md ${product.category === 'NEW' ? 'bg-green-100 text-green-700' :
                                             product.category === 'REFURBISHED' ? 'bg-blue-100 text-blue-700' :
                                             product.category === 'SPARE_PART' ? 'bg-gray-100 text-gray-700' :
@@ -239,7 +253,7 @@ export default function TiendaPage() {
                                             </button>
                                             <div className="flex items-stretch w-full bg-green-50/50 border border-green-200/60 rounded-xl overflow-hidden hover:border-green-300 transition-colors">
                                                 <button
-                                                    onClick={() => { setSelectedProduct(product); setActiveImage(0); }}
+                                                    onClick={() => openProduct(product)}
                                                     className="flex-1 flex items-center justify-center gap-2 py-2 px-4 text-green-700 hover:bg-green-100/50 transition-colors font-medium text-sm"
                                                 >
                                                     <FiFileText className="text-lg" />
@@ -278,8 +292,15 @@ export default function TiendaPage() {
 
                 {/* Product Detail Modal */}
                 {selectedProduct && (
-                    <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 sm:p-6 fade-in" onClick={() => setSelectedProduct(null)}>
-                        <div className="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl scale-in" onClick={e => e.stopPropagation()}>
+                    <div className="fixed inset-0 bg-white z-[100] overflow-y-auto overflow-x-hidden overscroll-contain">
+                        <div className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-gray-100">
+                            <div className="max-w-5xl mx-auto px-4 py-3">
+                                <button onClick={closeProduct} className="flex items-center gap-2 text-gray-600 hover:text-primary-500 font-medium">
+                                    <FiArrowLeft size={20} /> Volver a la tienda
+                                </button>
+                            </div>
+                        </div>
+                        <div className="max-w-5xl mx-auto">
                             <div className="grid grid-cols-1 md:grid-cols-2">
                                 {/* Left: Images Gallery */}
                                 <div className="bg-gray-50 p-6 md:p-8 flex flex-col items-center">
@@ -302,7 +323,7 @@ export default function TiendaPage() {
 
                                     {/* Thumbnails */}
                                     {selectedProduct.images && selectedProduct.images.length > 1 && (
-                                        <div className="flex gap-2 overflow-x-auto max-w-sm pb-2 slider-scrollbar">
+                                        <div className="flex gap-2 overflow-x-auto w-full max-w-sm pb-2 slider-scrollbar">
                                             {selectedProduct.images.map((img: string, i: number) => (
                                                 <button
                                                     key={i}
@@ -319,7 +340,7 @@ export default function TiendaPage() {
                                 {/* Right: Details */}
                                 <div className="p-6 md:p-8 lg:p-10 flex flex-col justify-between">
                                     <div>
-                                        <div className="flex justify-between items-start mb-4">
+                                        <div className="mb-4">
                                             <span className={`text-xs font-bold uppercase px-3 py-1.5 rounded-lg ${
                                                 selectedProduct.category === 'NEW' ? 'bg-green-100 text-green-700' :
                                                 selectedProduct.category === 'REFURBISHED' ? 'bg-blue-100 text-blue-700' :
@@ -328,15 +349,9 @@ export default function TiendaPage() {
                                             }`}>
                                                 {categoryLabels[selectedProduct.category]}
                                             </span>
-                                            <button 
-                                                onClick={() => setSelectedProduct(null)}
-                                                className="p-2 text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
-                                            >
-                                                <FiX size={20} />
-                                            </button>
                                         </div>
 
-                                        <h2 className="text-3xl font-extrabold text-primary-500 mb-2 leading-tight">
+                                        <h2 className="text-3xl font-extrabold text-primary-500 mb-2 leading-tight break-words">
                                             {selectedProduct.name}
                                         </h2>
                                         
@@ -348,7 +363,7 @@ export default function TiendaPage() {
                                         </div>
 
                                         <div className="prose prose-sm text-gray-600 mb-8 w-full max-w-none">
-                                            <p>{selectedProduct.description}</p>
+                                            <p className="whitespace-pre-line break-words">{selectedProduct.description}</p>
                                         </div>
 
                                         {/* Specifications List */}
@@ -392,7 +407,7 @@ export default function TiendaPage() {
                                             <FiShare2 className="text-xl" />
                                         </button>
                                         <button
-                                            onClick={() => { addToCart(selectedProduct); setSelectedProduct(null); }}
+                                            onClick={() => { addToCart(selectedProduct); closeProduct(); }}
                                             disabled={selectedProduct.stock === 0}
                                             className="btn-primary flex-1 btn-lg text-lg flex justify-center items-center gap-3 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all"
                                         >

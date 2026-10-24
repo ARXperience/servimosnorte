@@ -498,10 +498,6 @@ div {
     border-radius: 1rem;
   }
 
-  .fixed.inset-0 .grid.grid-cols-1.md\:grid-cols-2 {
-    grid-template-columns: 1fr;
-  }
-
   /* Product detail modal - full width images */
   .fixed.inset-0 .aspect-square {
     max-width: 100%;
