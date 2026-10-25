@@ -58,7 +58,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 {/* Brand */}
                 <div className="p-6 border-b">
                     <Link href="/admin/dashboard" className="flex items-center gap-3">
-                        <img src="/logo.png" alt="Servimos Norte" className="w-10 h-10 rounded-lg" />
+                        <img src="/logo-sm.png" alt="Servimos Norte" className="w-10 h-10 rounded-lg" />
                         <div>
                             <p className="font-bold text-primary-500">Servimos Norte</p>
                             <p className="text-xs text-gray-400">Panel Admin</p>

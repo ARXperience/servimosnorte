@@ -1,7 +1,8 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
-import { FiCheckCircle, FiArrowRight } from 'react-icons/fi';
+import PageHeader from '@/components/PageHeader';
+import { FiCheckCircle, FiArrowRight, FiTool, FiPhone } from 'react-icons/fi';
 
 export const metadata = {
     title: 'Servicios de Reparación | Servimos Norte',
@@ -82,67 +83,51 @@ export default function ServiciosPage() {
         <>
             <Navbar />
             <main>
-                {/* Header */}
-                <section className="relative bg-primary-500 text-white py-20 overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/headers/header-servicios.png')] bg-cover bg-center opacity-60"></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary-600/70 to-primary-500/50"></div>
-                    <div className="absolute right-0 sm:right-20 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none">
-                        <img src="/logo.png" alt="Servimos Norte" className="w-64 sm:w-96 object-contain" />
-                    </div>
-                    <div className="section py-0 relative z-10">
-                        <h1 className="text-2xl sm:text-heading-xl text-white mb-4 animate-fadeInUp break-words">Nuestros Servicios</h1>
-                        <p className="text-base sm:text-xl text-gray-200 max-w-3xl animate-fadeInUp delay-100">
-                            Ofrecemos servicio técnico profesional para todo tipo de electrodomésticos.
-                            Más de 30 años de experiencia nos respaldan.
-                        </p>
-                    </div>
-                </section>
+                <PageHeader
+                    title="Nuestros Servicios"
+                    subtitle="Ofrecemos servicio técnico profesional para todo tipo de electrodomésticos. Más de 30 años de experiencia nos respaldan."
+                    image="/images/headers/header-servicios.png"
+                />
 
                 {/* Services Grid */}
                 <section className="section">
-                    <div className="space-y-12">
-                        {services.map((service, i) => (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {services.map((service) => (
                             <div
-                                key={i}
-                                className="card p-8 lg:p-10 flex flex-col lg:flex-row gap-8 items-start animate-fadeInUp"
-                                style={{ animationDelay: `${i * 0.1}s` }}
+                                key={service.title}
+                                className="group flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300"
                             >
-                                <div className="w-24 h-24 rounded-2xl overflow-hidden bg-gray-50 flex-shrink-0">
-                                    <img src={service.img} alt={service.title} className="w-full h-full object-cover" />
+                                <div className="aspect-[5/4] bg-white overflow-hidden">
+                                    <img src={service.img} alt={service.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                                 </div>
-                                <div className="flex-1">
-                                    <h2 className="text-2xl font-bold text-primary-500 mb-3">{service.title}</h2>
-                                    <p className="text-gray-500 text-body mb-6">{service.desc}</p>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                        {service.features.map((feature, j) => (
-                                            <div key={j} className="flex items-center gap-2 text-gray-600">
+                                <div className="flex-1 flex flex-col p-5 sm:p-6 border-t border-gray-50">
+                                    <h2 className="text-xl font-bold text-primary-500 mb-2">{service.title}</h2>
+                                    <p className="text-gray-500 text-[15px] leading-relaxed mb-4">{service.desc}</p>
+                                    <ul className="grid grid-cols-1 gap-2 mb-6">
+                                        {service.features.map((feature) => (
+                                            <li key={feature} className="flex items-center gap-2 text-sm text-gray-600">
                                                 <FiCheckCircle className="text-accent-500 flex-shrink-0" />
-                                                <span>{feature}</span>
-                                            </div>
+                                                {feature}
+                                            </li>
                                         ))}
-                                    </div>
-                                </div>
-                                <div className="lg:self-center">
-                                    <Link href="/contacto" className="btn-primary whitespace-nowrap">
-                                        Solicitar <FiArrowRight className="ml-2" />
+                                    </ul>
+                                    <Link href="/contacto" className="mt-auto inline-flex items-center gap-2 font-semibold text-accent-600 hover:text-accent-700 group-hover:gap-3 transition-all">
+                                        Solicitar <FiArrowRight />
                                     </Link>
                                 </div>
                             </div>
                         ))}
-                    </div>
-                </section>
 
-                {/* Otros Electrodomésticos */}
-                <section className="section py-0 mb-20 text-center animate-fadeInUp">
-                    <div className="max-w-4xl mx-auto">
-                        <div className="flex flex-col items-center justify-center gap-6">
-                            <h2 className="text-2xl sm:text-3xl font-bold text-primary-500 m-0">
-                                Reparaciones de Otros Electrodomésticos
-                            </h2>
-                            <p className="text-base sm:text-xl text-gray-600 max-w-2xl">
+                        {/* Otros Electrodomésticos */}
+                        <div className="rounded-2xl bg-primary-500 text-white p-6 sm:p-8 flex flex-col">
+                            <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6">
+                                <FiTool className="text-2xl text-accent-400" />
+                            </div>
+                            <h2 className="text-xl font-bold text-white mb-2">Reparaciones de Otros Electrodomésticos</h2>
+                            <p className="text-white/70 text-[15px] leading-relaxed mb-6">
                                 ¿No ve su equipo en la lista anterior? También reparamos una amplia variedad de electrodomésticos adicionales.
                             </p>
-                            <Link href="/contacto" className="btn-primary whitespace-nowrap">
+                            <Link href="/contacto" className="btn-primary mt-auto self-start">
                                 Consúltenos <FiArrowRight className="ml-2" />
                             </Link>
                         </div>
@@ -150,15 +135,21 @@ export default function ServiciosPage() {
                 </section>
 
                 {/* CTA */}
-                <section className="bg-accent-500 text-white py-16">
-                    <div className="section py-0 text-center">
-                        <h2 className="text-xl sm:text-heading-lg text-white mb-4 break-words">¿Listo para reparar su electrodoméstico?</h2>
-                        <p className="text-base sm:text-xl text-white/90 mb-6 sm:mb-8">
-                            Contáctenos y reciba un presupuesto sin compromiso.
-                        </p>
-                        <Link href="/contacto" className="btn bg-white text-accent-600 hover:bg-gray-100 btn-lg font-bold">
-                            Contactar Ahora
-                        </Link>
+                <section className="section pt-0">
+                    <div className="relative overflow-hidden rounded-3xl bg-accent-500 px-6 py-12 sm:px-12 sm:py-14 flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
+                        <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/15 rounded-full blur-3xl" />
+                        <div className="relative">
+                            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">¿Listo para reparar su electrodoméstico?</h2>
+                            <p className="text-white/85 mt-2">Contáctenos y reciba un presupuesto sin compromiso.</p>
+                        </div>
+                        <div className="relative flex flex-col sm:flex-row gap-3 shrink-0">
+                            <Link href="/contacto" className="btn btn-lg bg-white text-accent-700 hover:bg-gray-100 font-bold">
+                                Contactar Ahora
+                            </Link>
+                            <a href="tel:+573125846294" className="btn btn-lg border border-white/50 text-white hover:bg-white/10">
+                                <FiPhone className="mr-2" /> Llamar
+                            </a>
+                        </div>
                     </div>
                 </section>
             </main>

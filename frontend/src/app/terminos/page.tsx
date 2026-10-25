@@ -1,14 +1,15 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PageHeader from '@/components/PageHeader';
 
 export default function TerminosYCondicionesPage() {
     return (
         <>
             <Navbar />
-            <main className="bg-gray-50 min-h-screen py-16">
-                <div className="max-w-4xl mx-auto px-4 bg-white p-8 rounded-2xl shadow-sm">
-                    <h1 className="text-3xl font-bold text-primary-500 mb-6">Términos y Condiciones</h1>
-                    <div className="prose prose-lg max-w-none text-gray-700">
+            <main className="bg-gray-50 min-h-screen pb-16">
+                <PageHeader title="Términos y Condiciones" />
+                <div className="max-w-4xl mx-auto px-4 pt-8 sm:pt-12">
+                    <div className="panel sm:p-12 text-gray-600 leading-relaxed break-words [&_p]:mb-4 [&_ul]:mb-4 [&_h2]:text-primary-500 [&_h3]:text-primary-500 [&_strong]:text-gray-800">
                         <p>Última actualización: 09 de junio de 2026</p>
                         <p>Lea estos términos y condiciones cuidadosamente antes de utilizar nuestro Servicio.</p>
 

@@ -147,7 +147,7 @@ export default function DeliveryMap({ onLocationSelect, initialAddress = '' }: D
     }
 
     if (!isLoaded) {
-        return <div className="h-64 bg-gray-100 rounded-lg animate-pulse flex items-center justify-center">Cargando Google Maps...</div>;
+        return <div className="h-80 bg-gray-100 rounded-2xl animate-pulse flex items-center justify-center">Cargando Google Maps...</div>;
     }
 
     return (
@@ -160,7 +160,7 @@ export default function DeliveryMap({ onLocationSelect, initialAddress = '' }: D
                     Cobertura: De Calle 116 a 187, y de Carrera 7 a Av. Boyacá.
                     Toque el mapa para calcular el costo de envío.
                 </p>
-                <div className="h-[450px] w-full rounded-xl overflow-hidden border-2 border-primary-100 relative z-0">
+                <div className="h-80 sm:h-[420px] w-full rounded-2xl overflow-hidden border border-gray-200 relative z-0">
                     <GoogleMap
                         mapContainerStyle={{ width: '100%', height: '100%' }}
                         center={{ lat: BASE_LAT, lng: BASE_LNG }}
@@ -224,18 +224,18 @@ export default function DeliveryMap({ onLocationSelect, initialAddress = '' }: D
             </div>
 
             {searchWarning && (
-                <div className="p-3 bg-blue-50 text-blue-700 rounded-lg text-sm border border-blue-200 animate-fadeIn">
+                <div className="p-3 bg-blue-50 text-blue-700 rounded-xl text-sm border border-blue-100 animate-fadeIn">
                     ℹ️ <strong>Ubicación aproximada.</strong> Si el pin no quedó en el punto exacto, por favor <strong>toque el mapa</strong> para ajustarlo a su puerta.
                 </div>
             )}
 
             {!inCoverage && position && (
-                <div className="p-3 bg-red-50 text-red-600 rounded-lg text-sm border border-red-200">
+                <div className="p-3 bg-red-50 text-red-600 rounded-xl text-sm border border-red-100">
                     ⚠️ Lo sentimos, esta ubicación está fuera de nuestra zona de cobertura para domicilios. Por favor contacte con nosotros por WhatsApp.
                 </div>
             )}
             {inCoverage && cost !== null && (
-                <div className="p-3 bg-green-50 text-green-700 rounded-lg text-sm border border-green-200 flex justify-between font-bold">
+                <div className="p-3 bg-accent-50 text-accent-700 rounded-xl text-sm border border-accent-100 flex justify-between gap-3 font-bold">
                     <span>Costo de domicilio calculado:</span>
                     <span>${cost.toLocaleString('es-CO')}</span>
                 </div>

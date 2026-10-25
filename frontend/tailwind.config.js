@@ -37,7 +37,7 @@ module.exports = {
                 danger: { 500: '#ef4444', 600: '#dc2626' },
             },
             fontFamily: {
-                sans: ['Montserrat', 'system-ui', 'sans-serif'],
+                sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
             },
             fontSize: {
                 'body': ['1.125rem', { lineHeight: '1.75rem' }],
@@ -51,8 +51,8 @@ module.exports = {
                 '2xl': '1.5rem',
             },
             boxShadow: {
-                'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
-                'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)',
+                'card': '0 1px 2px rgba(15, 27, 45, 0.04), 0 2px 8px -2px rgba(15, 27, 45, 0.06)',
+                'card-hover': '0 18px 40px -12px rgba(15, 27, 45, 0.22)',
                 'glow': '0 0 20px rgba(76, 175, 80, 0.3)',
             },
         },

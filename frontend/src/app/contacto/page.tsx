@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { api } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PageHeader from '@/components/PageHeader';
 import { FiPhone, FiMail, FiMapPin, FiClock, FiSend } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
@@ -39,19 +40,11 @@ export default function ContactoPage() {
         <>
             <Navbar />
             <main>
-                <section className="relative bg-primary-500 text-white py-20 overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/headers/header-contacto.png')] bg-cover bg-center opacity-60"></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary-600/70 to-primary-500/50"></div>
-                    <div className="absolute right-0 sm:right-20 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none">
-                        <img src="/logo.png" alt="Servimos Norte" className="w-64 sm:w-96 object-contain" />
-                    </div>
-                    <div className="section py-0 relative z-10">
-                        <h1 className="text-2xl sm:text-heading-xl text-white mb-4 animate-fadeInUp break-words">Contáctenos</h1>
-                        <p className="text-base sm:text-xl text-gray-200 max-w-3xl animate-fadeInUp delay-100">
-                            Estamos aquí para ayudarle. Contáctenos por teléfono, WhatsApp o complete el formulario.
-                        </p>
-                    </div>
-                </section>
+                <PageHeader
+                    title="Contáctenos"
+                    subtitle="Estamos aquí para ayudarle. Contáctenos por teléfono, WhatsApp o complete el formulario."
+                    image="/images/headers/header-contacto.png"
+                />
 
                 <section className="section">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

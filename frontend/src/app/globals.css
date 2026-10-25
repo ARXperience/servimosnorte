@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -13,15 +13,9 @@
   }
 
   /* Responsive font scaling */
-  @media (min-width: 640px) {
-    html {
-      font-size: 17px;
-    }
-  }
-
   @media (min-width: 1024px) {
     html {
-      font-size: 18px;
+      font-size: 17px;
     }
   }
 
@@ -44,7 +38,7 @@
   h4,
   h5,
   h6 {
-    @apply font-bold text-primary-500;
+    @apply font-bold text-primary-500 tracking-tight;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: manual;
@@ -58,23 +52,23 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-xl transition-all duration-300 cursor-pointer focus:outline-none focus:ring-4 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[100px];
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-base font-semibold rounded-full transition-all duration-300 cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] min-w-[100px];
     white-space: normal;
     word-wrap: break-word;
   }
 
   @media (min-width: 640px) {
     .btn {
-      @apply px-8 py-4 text-lg min-h-[56px] min-w-[120px];
+      @apply px-6 py-3 min-h-[48px] min-w-[120px];
     }
   }
 
   .btn-primary {
-    @apply btn bg-accent-500 text-white hover:bg-accent-600 focus:ring-accent-300 shadow-lg hover:shadow-glow active:scale-95;
+    @apply btn bg-accent-500 text-white hover:bg-accent-600 focus-visible:ring-accent-300 shadow-md shadow-accent-500/25 active:scale-95;
   }
 
   .btn-secondary {
-    @apply btn bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-300 shadow-lg active:scale-95;
+    @apply btn bg-primary-500 text-white hover:bg-primary-600 focus-visible:ring-primary-300 shadow-md active:scale-95;
   }
 
   .btn-outline {
@@ -100,12 +94,12 @@
   }
 
   .btn-lg {
-    @apply px-6 py-3 text-base min-h-[52px];
+    @apply px-6 py-3 text-base min-h-[48px];
   }
 
   @media (min-width: 640px) {
     .btn-lg {
-      @apply px-10 py-5 text-xl min-h-[64px];
+      @apply px-8 py-3.5 text-lg min-h-[56px];
     }
   }
 
@@ -119,14 +113,13 @@
     }
   }
 
-  .input {
-    @apply w-full px-4 py-3 text-base border-2 border-gray-200 rounded-xl focus:border-accent-500 focus:ring-4 focus:ring-accent-100 focus:outline-none transition-all duration-200 bg-white placeholder:text-gray-400;
+  /* Static content block (forms, checkout, legal text): like .card but without the hover lift */
+  .panel {
+    @apply bg-white rounded-3xl border border-gray-100 shadow-card p-5 sm:p-8;
   }
 
-  @media (min-width: 640px) {
-    .input {
-      @apply px-5 py-4 text-lg;
-    }
+  .input {
+    @apply w-full px-4 py-3 text-base border border-gray-200 rounded-xl focus:border-accent-500 focus:ring-4 focus:ring-accent-100 focus:outline-none transition-all duration-200 bg-white placeholder:text-gray-400;
   }
 
   .label {
@@ -156,10 +149,15 @@
   }
 
   .page-title {
-    @apply text-2xl sm:text-heading-lg lg:text-heading-xl text-primary-500 mb-4;
-    line-height: 1.2;
+    @apply text-3xl sm:text-4xl font-extrabold text-primary-500 tracking-tight mb-3;
+    line-height: 1.15;
     word-wrap: break-word;
     overflow-wrap: break-word;
+  }
+
+  /* Small green label above section titles */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-[0.14em] text-accent-600 mb-3;
   }
 
   .stat-card {
@@ -554,6 +552,15 @@ div {
 .slider-scrollbar::-webkit-scrollbar-thumb {
   background-color: rgba(76, 175, 80, 0.3);
   border-radius: 20px;
+}
+
+/* Horizontal chip rows that scroll without a visible bar */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Touch-friendly interactive elements */

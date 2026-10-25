@@ -4,19 +4,17 @@ import { FiPhone, FiMail, FiMapPin, FiClock } from 'react-icons/fi';
 export default function Footer() {
     return (
         <footer className="bg-primary-500 text-white mt-auto">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                     {/* Brand */}
                     <div>
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="w-12 h-12 bg-accent-500 rounded-xl flex items-center justify-center">
-                                <span className="text-white font-extrabold text-xl">SN</span>
-                            </div>
-                            <div>
-                                <span className="text-xl font-bold">Servimos Norte</span>
-                            </div>
+                            <img src="/logo-sm.png" alt="" className="w-11 h-11 rounded-xl ring-1 ring-white/10" />
+                            <span className="text-xl font-extrabold tracking-tight">
+                                Servimos <span className="text-accent-400">Norte</span>
+                            </span>
                         </div>
-                        <p className="text-gray-300 text-base leading-relaxed">
+                        <p className="text-gray-400 text-[15px] leading-relaxed">
                             Más de 30 años reparando electrodomésticos en Bogotá.
                             Servicio profesional, rápido y confiable.
                         </p>
@@ -24,17 +22,18 @@ export default function Footer() {
 
                     {/* Links */}
                     <div>
-                        <h3 className="text-lg font-bold mb-4 text-white">Navegación</h3>
+                        <h3 className="text-sm font-bold uppercase tracking-[0.14em] mb-5 text-white">Navegación</h3>
                         <ul className="space-y-3">
                             {[
                                 { href: '/', label: 'Inicio' },
-                                { href: '/servicios', label: 'Servicios' },
                                 { href: '/tienda', label: 'Tienda' },
+                                { href: '/servicios', label: 'Servicios' },
+                                { href: '/solicitar-reparacion', label: 'Solicitar reparación' },
                                 { href: '/nosotros', label: 'Nosotros' },
                                 { href: '/contacto', label: 'Contacto' },
                             ].map((link) => (
                                 <li key={link.href}>
-                                    <Link href={link.href} className="text-gray-300 hover:text-accent-400 transition-colors text-base">
+                                    <Link href={link.href} className="text-gray-400 hover:text-white transition-colors text-[15px]">
                                         {link.label}
                                     </Link>
                                 </li>
@@ -44,7 +43,7 @@ export default function Footer() {
 
                     {/* Services */}
                     <div>
-                        <h3 className="text-lg font-bold mb-4 text-white">Servicios</h3>
+                        <h3 className="text-sm font-bold uppercase tracking-[0.14em] mb-5 text-white">Servicios</h3>
                         <details className="group">
                             <summary className="flex items-center justify-between cursor-pointer text-gray-300 font-medium hover:text-accent-400">
                                 Ver todos los servicios
@@ -70,7 +69,7 @@ export default function Footer() {
 
                     {/* Contact */}
                     <div>
-                        <h3 className="text-lg font-bold mb-4 text-white">Contacto</h3>
+                        <h3 className="text-sm font-bold uppercase tracking-[0.14em] mb-5 text-white">Contacto</h3>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3 text-gray-300">
                                 <FiPhone className="text-accent-400 text-xl mt-1 flex-shrink-0" />
@@ -106,7 +105,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="border-t border-primary-400 mt-12 pt-8 text-center text-gray-400 text-sm flex flex-col sm:flex-row justify-center items-center gap-4">
+                <div className="border-t border-white/10 mt-12 pt-8 text-center text-gray-500 text-sm flex flex-col sm:flex-row justify-between items-center gap-4">
                     <p>© {new Date().getFullYear()} Servimos Norte. Todos los derechos reservados.</p>
                     <div className="flex gap-4">
                         <Link href="/terminos" className="hover:text-accent-400 transition-colors">Términos y Condiciones</Link>
